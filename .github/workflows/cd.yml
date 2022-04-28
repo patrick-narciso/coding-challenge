@@ -1,0 +1,22 @@
+name: CD
+on:
+  push:
+    branches:
+    - main
+jobs:
+  build:
+    name: Zip and Post in Slack
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          rm -rf .git
+          zip -r cove-coding-challenge.zip ./.      
+      - name: Upload to slack step
+        uses: adrey/slack-file-upload-action@master
+        with:
+          token: ${{ secrets.SLACK_TOKEN }}
+          path: cove-coding-challenge.zip
+          channel: ${{ secrets.SLACK_CHANNEL }}
+          initial_comment: "Hey! Here's a fresh version of our coding challenge! Make sure to share it with Liz! 🚀"
+          

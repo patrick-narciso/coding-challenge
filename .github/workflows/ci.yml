@@ -1,0 +1,25 @@
+name: CI
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+  # PRs into any branch
+jobs:
+  build:
+    name: Lint / Test 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '12'
+      - name: Install node-modules
+        run: |
+          yarn install
+      - name: Lint
+        id: lint
+        run: yarn lint
+      - name: Test
+        id: test
+        run: yarn test
