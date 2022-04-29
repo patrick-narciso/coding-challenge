@@ -83,7 +83,7 @@ NOTE: Don't worry about the efficiency of your solution:
 
 ### Explain your approach to Part 3
 
-TODO: Explain your approach here
+In this step, I go through the array twice using the forEach function and inside the second forEach function I check if the index of the elements are in order to ensure that the comparison is being made between different elements. Once two conflicting reservations are found, the function returns true and stops traversing the array, thus giving a performance gain, otherwise it continues traversing the elements and always changing the value of the isOverlap variable that will be returned at the end as false if none is found. conflicting reservation
 
 ## One last thing...
 
