@@ -1,46 +1,55 @@
-import React from "react";
+import moment from "moment";
+import React, { useState, useEffect, useMemo } from "react";
 
 import "./App.css";
 
 import DatePicker from "./DatePicker";
 import DropDownSelect from "./DropDownSelect";
 import ReservationList from "./ReservationList";
+import { getReservations } from "./services/reservations";
 
 const App = () => {
-  // TODO: fetch reservations from the API
+  const [reservations, setReservations] = useState([]);
+  const [date, setDate] = useState("");
+  const [room, setRoom] = useState("room-a");
+
+  const fetchReservations = async () => {
+    const response = await getReservations();
+    setReservations(response);
+  };
+
+  const filteredReservations = useMemo(() => {
+    const dateSelected = moment(date).format("MMM Do YY");
+    const result = reservations.filter(
+      ({ end, start, room: { name } }) =>
+        (moment(start).format("MMM Do YY") === dateSelected &&
+          name.toLowerCase() === room.toLowerCase()) ||
+        (moment(end).format("MMM Do YY") === dateSelected &&
+          name.toLowerCase() === room.toLowerCase())
+    );
+    return result;
+  }, [date, reservations, room]);
+
+  useEffect(() => {
+    fetchReservations();
+  }, []);
 
   return (
     <div className="app">
       <div className="app-filters">
         <div className="app-filter-item">
-          {/* TODO: keep track of state */}
-          <DatePicker
-            value={new Date()}
-            onChange={(newDate) => console.log(newDate)}
-          />
+          <DatePicker value={date} onChange={(newDate) => setDate(newDate)} />
         </div>
         <div className="app-filter-item">
-          {/* TODO: populate options with rooms from the API */}
-          {/* TODO: keep track of state */}
           <DropDownSelect
-            value="room-a"
-            onChange={(newRoom) => console.log(newRoom)}
-            options={[
-              { value: "room-a", name: "Room A" },
-              { value: "room-b", name: "Room B" },
-            ]}
+            value={room}
+            onChange={(newRoom) => setRoom(newRoom)}
+            options={reservations}
           />
         </div>
       </div>
       <div className="app-reservations">
-        {/* TODO: pass filtered reservations here */}
-        <ReservationList
-          reservations={[
-            { start: new Date(), end: new Date(), room: "room-b" },
-            { start: new Date(), end: new Date(), room: "room-a" },
-            { start: new Date(), end: new Date(), room: "room-b" },
-          ]}
-        />
+        <ReservationList reservations={filteredReservations} />
       </div>
     </div>
   );
