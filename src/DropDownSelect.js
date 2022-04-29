@@ -7,9 +7,9 @@ import React from "react";
  */
 const DropDownSelect = ({ value, onChange, options }) => (
   <select value={value} onChange={(e) => onChange(e.target.value)}>
-    {options.map(({ value, name }) => (
-      <option key={value} value={value}>
-        {name}
+    {options.map((option) => (
+      <option key={option.id} value={option.room.name}>
+        {option.room.name}
       </option>
     ))}
   </select>
