@@ -2,7 +2,7 @@
 
 Welcome to the Cove coding challenge! 👋
 
-Adam just signed a deal with a large real estate owner 🎉. Before we can launch our *powered by cove* platform in their office building, we need to get a reservation system up and going. 
+Adam just signed a deal with a large real estate owner 🎉. Before we can launch our *powered by cove* platform in their office building, we need to get a reservation system up and going.
 
 In our backlog grooming Jeremy (our Product person) presented the problem we are trying solve for our users:
 
@@ -36,11 +36,11 @@ After this step, the user should be able to change the value of both filters, an
 
 ### Explain your approach to Part 1
 
-TODO: Explain your approach here
+In this first step, I added some dependencies like moment (to handle dates) and Axios (to fetch the API). Also, I took an approach where I separate the services and configure the base with a base URL with Axios, making it easier for future URL changes etc. without having to mess with the service layer or components. In addition, I created the memoized value with the filters passed by the user using the useMemo hook and stored the filter value in the state, with this we only redo the "calculation" once some hook dependency changes and for that I added the exhaustive plugin dependency hooks in eslint to help with this. Finally, the reservations are fetched only once, in the component mount.
 
 ## Part 2
 
-Your next job is to make the list of reservations look a little nicer. Ryan, the designer on our team made some mock-ups for the desktop and mobile UI. Take a look at the TODO in [`ReservationList.js`](./src/ReservationList.js) and try to match Ryan's mock-ups below. Your design should be responsive, using a css breakpoint to switch between the desktop and mobile layouts. 
+Your next job is to make the list of reservations look a little nicer. Ryan, the designer on our team made some mock-ups for the desktop and mobile UI. Take a look at the TODO in [`ReservationList.js`](./src/ReservationList.js) and try to match Ryan's mock-ups below. Your design should be responsive, using a css breakpoint to switch between the desktop and mobile layouts.
 
 
 Desktop:
