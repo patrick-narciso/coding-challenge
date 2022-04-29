@@ -64,7 +64,7 @@ Feel free to use whatever approach to styling you wish. No need to mirror what i
 
 ### Explain your approach to Part 2
 
-TODO: Explain your approach here
+In this step I added styles in the app following the mockups using styled-components. I used the mobile-first technique to add the styles improving the UX and flex design with media queries for mobile version.
 
 ## Part 3
 
