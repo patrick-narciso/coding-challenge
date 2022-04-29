@@ -5,9 +5,29 @@
  *   - reservations conflict if their times overlap in any way
  *   - reservations DO NOT conflict if they are just touching each other (reservation1.end === reservation2.start)
  */
-// eslint-disable-next-line no-unused-vars
 export const isScheduleConflict = (reservations) => {
-  // TODO: complete the implementation of this func
+  if (reservations.length === 0) return false;
+  let isOverlap = false;
+  reservations.forEach(({ start, end }, i) => {
+    let st1 = start;
+    let et1 = end;
 
-  return false;
+    reservations.forEach((reservation, j) => {
+      if (i != j) {
+        let st2 = reservation.start;
+        let et2 = reservation.end;
+        if (
+          (st1 >= st2 && st1 <= et2) ||
+          (et1 >= st2 && et1 <= et2) ||
+          (st2 >= st1 && st2 <= et1) ||
+          (et2 >= st1 && et2 <= et1)
+        ) {
+          isOverlap = true;
+          return isOverlap;
+        }
+      }
+    });
+  });
+
+  return isOverlap;
 };
